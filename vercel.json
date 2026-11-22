@@ -1,0 +1,35 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "apexstore-api": {
+      "root": "backend",
+      "framework": "node"
+    },
+    "frontend": {
+      "root": "frontend",
+      "framework": "create-react-app",
+      "bindings": [
+        {
+          "type": "service",
+          "service": "apexstore-api",
+          "format": "url",
+          "env": "APEXSTORE_API_URL"
+        }
+      ]
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": {
+        "service": "apexstore-api"
+      }
+    },
+    {
+      "source": "/(.*)",
+      "destination": {
+        "service": "frontend"
+      }
+    }
+  ]
+}
